@@ -5,7 +5,7 @@ from config.settings import settings
 
 class CameraManager:
     def __init__(self):
-        self.cap = cv2.VideoCapture(settings.camera_index)
+        self.cap = cv2.VideoCapture(settings.camera_device)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, settings.resolution[0])
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, settings.resolution[1])
         
@@ -31,7 +31,6 @@ class CameraManager:
                 time.sleep(0.1)
 
     def get_frame(self):
-
         with self.lock:
             if self.latest_frame is not None:
                 return self.latest_frame.copy()

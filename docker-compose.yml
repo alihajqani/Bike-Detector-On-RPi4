@@ -1,18 +1,52 @@
 services:
-  bike-detector:
+  # ==========================================
+  # First service: connect to `USB Camer`
+  # Access: http://raspberry-ip:8000/detect-bike
+  # ==========================================
+  detector-cam0:
     build: .
-    container_name: bike-detector
+    container_name: bike_detector_cam0
     restart: unless-stopped
     privileged: true
+    shm_size: '512m'
     devices:
       - /dev/video0:/dev/video0
     ports:
       - "8000:8000"
     environment:
-      - THRESHOLD=0.05
-      - MODEL_PATH=/app/models/yolo26n.pt
+      - CAMERA_DEVICE=/dev/video0
+      - THRESHOLD=0.45
+      - LOG_LEVEL=WARNING
     volumes:
       - ./models:/app/models
-      - ./logs:/app/logs
-    mem_limit: 3g
-    memswap_limit: 3.5g
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ==========================================
+  # First service: connect to `DV20 USB`
+  # Access: http://raspberry-ip:8001/detect-bike
+  # ==========================================
+  detector-cam1:
+    build: .
+    container_name: bike_detector_cam1
+    restart: unless-stopped
+    privileged: true
+    shm_size: '512m'
+    devices:
+      - /dev/video2:/dev/video2
+    ports:
+      - "8001:8000"
+    environment:
+      - CAMERA_DEVICE=/dev/video2
+      - THRESHOLD=0.45
+      - LOG_LEVEL=WARNING
+    volumes:
+      - ./models:/app/models
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
