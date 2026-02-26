@@ -1,0 +1,18 @@
+services:
+  bike-detector:
+    build: .
+    container_name: bike-detector
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - /dev/video0:/dev/video0
+    ports:
+      - "8000:8000"
+    environment:
+      - THRESHOLD=0.05
+      - MODEL_PATH=/app/models/yolo26n.pt
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    mem_limit: 3g
+    memswap_limit: 3.5g
