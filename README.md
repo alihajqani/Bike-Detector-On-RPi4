@@ -1,5 +1,5 @@
 
-# 🚲 Bike Detector API on Raspberry Pi 4 | Raspberry Pi 4
+# 🚲 Bike Detector API on Raspberry Pi 4 | Raspberry Pi 5
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688.svg)
