@@ -1,8 +1,4 @@
 services:
-  # ==========================================
-  # First service: connect to `USB Camer`
-  # Access: http://raspberry-ip:8000/detect-bike
-  # ==========================================
   detector-cam0:
     build: .
     container_name: bike_detector_cam0
@@ -22,13 +18,14 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: "50m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
-  # ==========================================
-  # First service: connect to `DV20 USB`
-  # Access: http://raspberry-ip:8001/detect-bike
-  # ==========================================
   detector-cam1:
     build: .
     container_name: bike_detector_cam1
@@ -48,5 +45,10 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: "50m"
+        max-file: "5"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
