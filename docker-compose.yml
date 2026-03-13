@@ -1,4 +1,8 @@
 services:
+  # ==========================================
+  # First service: connect to `USB Camer`
+  # Access: http://raspberry-ip:8000/detect-bike
+  # ==========================================
   detector-cam0:
     build: .
     container_name: bike_detector_cam0
@@ -26,6 +30,10 @@ services:
       timeout: 5s
       retries: 3
 
+  # ==========================================
+  # Second service: connect to `DV20 USB`
+  # Access: http://raspberry-ip:8001/detect-bike
+  # ==========================================
   detector-cam1:
     build: .
     container_name: bike_detector_cam1
